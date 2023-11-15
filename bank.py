@@ -10,4 +10,8 @@ class bank():
     def bankaccount_del(self):
       pass
     def user_up(self):
-      
+      pass
+    def user_list(self):
+      pass
+    def user_del(self):
+      pass
