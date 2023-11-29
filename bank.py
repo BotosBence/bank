@@ -1,25 +1,27 @@
+import time
+
 class bank():
+    def add(self, key, value):
+      self[key] = value
     def __init__(self): # this defines lists
-      self.banknames = [] # bankName, headquarters
-      self.bankoffices = [] # bankName, userAccounts - this is (probably) where tech support is
-    def add_new_bank(self): # record new bank to bankname list
-      user_input = None
+      self.banknames = {} # bankName, headquarters
+      self.bankoffices = {} # bankName, userAccounts - this is (probably) where tech support is
+    def add_new_bank(self, user_input = None): # record new bank to bankname list
       while user_input == None:
         user_input = str(input("Type in a name of the bank: "))
         if user_input in self.banknames:
           user_input = None
         else:
-          self.banknames.append(user_input)
+          self.banknames.add(user_input, None)
     def check_bank_name(self): # search for bank in bankname
       user_input = str(input("Type in the name of the bank you're searching for: "))
-      return (user_input if user_input in self.banknames else None) # None means it couldn't find the bank
+      return (True if user_input in self.banknames else False) # False means it couldn't find the bank
     def addBankOffices(self): # new bank office felvetele
       user_input = None
       while user_input == None:
         user_input = str(input("Type in a name of the office: "))
-        for offices in self.bankoffices:
-          if user_input.lower() == offices.lower() and user_input.lower() != "none":
-            user_input = None
+        if user_input in self.bankoffices:
+          user_input = None
 
 
 # TODO need to be carefull with user_input being None
@@ -28,18 +30,42 @@ class bank():
       # needs to be appended in self to bankoffices
     def smart_check_bank(self): # this function checks if bank doesn't exist in bankname and gives you the chance to record it
       user_input = None
+      get = None
       while user_input == None:
-        user_input = str(input("Type in a name of the bank: ")).lower()
+        user_input = str(input("Type in the name of the bank: ")).lower()
         if user_input.lower() not in self.banknames:
-          print("This bankname doesn't exists! ")
-          user_input = None
-    def smart_bankoffice_del(self): # searches for and deletes bank office 
-      # it's smart because it searches
+          while get == None:
+            get = input("This bankname doesn't exists! Would you like to record it into bankname?(y/n) ")
+            if ["y", "yes"] in get.lower():
+              self.banknames.add(user_input, None)
+              get = None
+            elif ["n", "no"] in get.lower():
+              print("understood it will not be recorded")
+              get = None
+    def smart_bankoffice_del(self): # searches for and deletes bank office, it's smart because it searches
       user_input = None
+      get = None
+      get2 = None
       while user_input == None:
-        user_input = input("Type in a name of the office you wish to execute from the list: ")
-        if user_input in self.bankoffices:
-          self.bankoffices[self.bankoffices.find(user_input)] # searches for name in bankoffices list
+        user_input = str(input("Type in the name of the bank: ")).lower()
+        if user_input.lower() in self.banknames: # searches for name in bankoffices list
+          while get == None:
+            get = input("This bankname exists! Would you like to delete it?(y/n) ")
+            if ["y", "yes"] in get.lower():
+              while get2 == None:
+                get2 = input("Are you sure?(y/n) ")
+                if ["y", "yes"] in get2.lower():
+                  del self.banknames[user_input]
+                elif ["n", "no"] in get2.lower():
+                  pass
+                else:
+                  get2 = None
+            elif ["n", "no"] in get.lower():
+              print("understood it will not be deleted")
+              get = None
+        else:
+          print(f"this bankname doesn't exist: {user_input}")
+          user_input = None
     def bankoffice_list(self): # lists bankoffices
       print(self.bankoffices)
     def save(self): # probably doesn't work
@@ -57,8 +83,8 @@ class bank():
 class customer():
   def __init__(self): # this function was made for list_customer function
     self.customers = []
-  def last_id(self): # I don't know what this does or why this was created but it need to be called 
-    pass
+  def last_id(self): # I don't know what this does or why this was created but it needs to be called 
+    return 
   def add_customer(self): # add new customer to customer list
     user_input = None
     while user_input == None:
