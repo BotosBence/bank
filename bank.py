@@ -56,8 +56,6 @@ class bank():
                 if question.lower() is "y":
                     get = False
 
-
-
     def smart_bankoffice_del(self, get = True, user_input = None):  # searches for and deletes bank office, it's smart because it searches
         while get:
             question = input("Would you like to record a new bank?[y/n]: ")
