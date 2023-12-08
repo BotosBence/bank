@@ -1,147 +1,85 @@
-class Customer:
-    def __init__(self):
-        # Szótár az ügyfél részleteinek tárolására az azonosítójukkal kulcsként
-        self.customers = {}
-        self.bank_customer_list = {}
-
-    def last_cust_id(self):
-        # Visszaadja az utolsó hozzáadott ügyfél azonosítóját
-        return max(self.customers.keys()) if self.customers else 0
-
-    def add_customer(self, cust_name, age, bank):
-        # Új ügyfél hozzáadása nevével, életkorával és kezdetben hozzárendelt bank nélkül
-        last_id = self.last_cust_id()
-        self.customers[last_id + 1] = {'name': cust_name, 'age': age, 'bank': bank}
-
-    def assign_bank(self, cust_id, bank_name):
-        # Bank hozzárendelése a megadott ügyfélhez
-        if cust_id in self.customers:
-            self.customers[cust_id]['bank'] = bank_name
-            self.bank_customer_list[bank_name] = self.customers[cust_id]
-            print(f"A(z) '{bank_name}' bank hozzárendelve a(z) '{cust_id}' azonosítójú ügyfélhez.")
-
-    def del_customer(self, cust_id):
-        # Megadott ügyfél törlése
-        if cust_id in self.customers:
-            del self.customers[cust_id]
-            print(f"A(z) '{cust_id}' azonosítójú ügyfél törölve.")
-
-    def list_customers(self):
-        # Az ügyfél és részleteik listázása, beleértve a hozzárendelt bankot
-        print("Ügyfelek listája:")
-        for cust_id, details in self.customers.items():
-            bank = details['bank'] if details['bank'] else "Nincs hozzárendelve"
-            print(f"- Azonosító: {cust_id}, Név: {details['name']}, Életkor: {details['age']}, Bank: {bank}")
-
-    def save_customers(self, file_name):
-        with open(file_name, 'w') as file:
-            for cust_id, details in self.customers.items():
-                bank = details['bank'] if details['bank'] else "Nincs hozzárendelve"
-                file.write(f"{cust_id}:{details['name']}:{details['age']}:{bank}\n")
-
-    def load_customers(self, file_name):
-        with open(file_name, 'r') as file:
-            self.customers = {}
-            lines = file.readlines()
-            for line in lines:
-                cust_id, name, age, bank = line.strip().split(':')
-                self.customers[int(cust_id)] = {'name': name, 'age': int(age), 'bank': bank}
-
+import bank_customer
 class Bank:
     def __init__(self):
-        # Szótár a banknevek tárolására kulcsként, alkalmazottak listájával értékül
-        self.bankname = {}
-        # Szótár az alkalmazottak részleteinek tárolására, az alkalmazott nevével kulcsként
-        self.employee = {}
-        # Szótár a bankokhoz hozzárendelt ügyfelek tárolására
+        self.bank_names = {}
+        self.employees = {}
         self.customers_in_banks = {}
-        # Meghívja a customer osztályt
-        self.customer_obj = Customer()
+        self.customer_obj = bank_customer.Customer()
 
     def add_new_bank(self, bank_name):
-        # Új bank hozzáadása üres alkalmazottak és ügyfél listájával
-        self.bankname[bank_name] = []
+        self.bank_names[bank_name] = []
 
     def add_employee(self, employee_name, age, bank_name):
-        # Alkalmazott hozzáadása a megadott bankhoz
-        if bank_name in self.bankname:
-            # Alkalmazott részleteinek tárolása szótárban
-            self.employee[employee_name] = {'age': age, 'bank': bank_name}
-            # Alkalmazott hozzáadása a bank alkalmazottainak listájához
-            self.bankname[bank_name].append(employee_name)
+        if bank_name in self.bank_names:
+            self.employees[employee_name] = {'age': age, 'bank': bank_name}
+            self.bank_names[bank_name].append(employee_name)
         else:
-            print(f"A(z) '{bank_name}' bank nem létezik.")
+            print(f"The bank '{bank_name}' does not exist.")
 
     def add_customer_to_bank(self, cust_id, bank_name):
-        # Ügyfelek hozzáadása a megadott bankhoz
         if bank_name in self.customers_in_banks:
             self.customers_in_banks[bank_name].append(cust_id)
         else:
-            print(f"A(z) '{bank_name}' bank nem létezik.")
+            print(f"The bank '{bank_name}' does not exist.")
 
     def check_bank(self, bank_name):
-        # Ellenőrzi, hogy létezik-e a bank, ha nem, felkínálja a létrehozását
-        if bank_name not in self.bankname:
-            create = input(f"A(z) '{bank_name}' bank nem létezik. Szeretné létrehozni? (y/n): ")
+        if bank_name not in self.bank_names:
+            create = input(f"The bank '{bank_name}' does not exist. Create? (y/n): ")
             if create.lower() == 'y':
                 self.add_new_bank(bank_name)
 
     def check_employee(self, employee_name):
-        # Ellenőrzi, hogy létezik-e az alkalmazott, ha nem, felkínálja hozzáadását
-        if employee_name not in self.employee:
-            create = input(f"A(z) '{employee_name}' alkalmazott nem létezik. Szeretné hozzáadni? (igen/nem): ")
-            if create.lower() == 'igen':
-                age = int(input("Az alkalmazott életkora: "))
+        if employee_name not in self.employees:
+            create = input(f"The employee '{employee_name}' does not exist. Add? (yes/no): ")
+            if create.lower() == 'yes':
+                age = int(input("Employee's age: "))
                 self.add_employee(employee_name, age)
 
     def del_bank(self, bank_name):
-        # Megadott bank törlése
-        if bank_name in self.bankname:
-            del self.bankname[bank_name]
-            print(f"A(z) '{bank_name}' bank törölve.")
+        if bank_name in self.bank_names:
+            del self.bank_names[bank_name]
+            print(f"The bank '{bank_name}' has been deleted.")
 
     def del_employee(self, employee_name):
-        # Megadott alkalmazott törlése
-        if employee_name in self.employee:
-            del self.employee[employee_name]
-            print(f"A(z) '{employee_name}' alkalmazott törölve.")
+        if employee_name in self.employees:
+            del self.employees[employee_name]
+            print(f"The employee '{employee_name}' has been deleted.")
 
     def list_banks(self):
-        # Bankok, alkalmazottak és a bankokhoz hozzárendelt ügyfelek listázása
-        print("Bankok, alkalmazottak és a bankokhoz hozzárendelt ügyfelek listája:")
-        for bank, employees in self.bankname.items():
+        print("Banks, employees, and assigned customers:")
+        for bank, employees in self.bank_names.items():
             print(f"- {bank}")
             if employees:
-                print("  Alkalmazottak:")
+                print("  Employees:")
                 for emp in employees:
-                    print(f"    -Név: {emp}, Életkor: {self.employee[emp]['age']}")
+                    print(f"    -Name: {emp}, Age: {self.employees[emp]['age']}")
             else:
-                print("  Nincsenek alkalmazottak ebben a bankban.")
+                print("  No employees in this bank.")
             if bank in self.customers_in_banks:
                 assigned_customers = self.customers_in_banks[bank]
                 if assigned_customers:
-                    print("  Ügyfelek:")
+                    print("  Customers:")
                     for cust_id in assigned_customers:
-                        # Ügyfél részleteinek lekérése a Customer osztályból és kiírása
-                        print(f"    - Azonosító: {cust_id}, Név: {self.customer_obj.customers[cust_id]['name']}, Életkor: {self.customer_obj.customers[cust_id]['age']}")
+                        print(f"    -ID: {cust_id}, Name: {self.customer_obj.customers[cust_id]['name']}, Age: {self.customer_obj.customers[cust_id]['age']}")
                 else:
-                    print("  Nincsenek ügyfelek hozzárendelve ehhez a bankhoz.")
+                    print("  No customers assigned to this bank.")
+            else:
+                print("  There are no customers")
 
     def list_employees(self):
-        # Alkalmazottak listázása
-        print("Alkalmazottak listája:")
-        for emp, details in self.employee.items():
-            print(f"- {emp}, Életkor: {details['age']}")
+        print("Employees:")
+        for emp, details in self.employees.items():
+            print(f"- {emp}, Age: {details['age']}")
 
     def save_bank_data(self, file_name):
         with open(file_name, 'w') as file:
-            for bank, employees in self.bankname.items():
+            for bank, employees in self.bank_names.items():
                 file.write(f"{bank}:\n")
                 for emp in employees:
-                    file.write(f"    {emp}:{self.employee[emp]['age']}\n")
+                    file.write(f"    {emp}:{self.employees[emp]['age']}\n")
                 file.write('\n')
 
-                assigned_customers = self.customers_in_banks[bank]
+                assigned_customers = self.customers_in_banks[bank] if bank in self.customers_in_banks else []
                 for cust_id in assigned_customers:
                     name = self.customer_obj.customers[cust_id]['name']
                     age = self.customer_obj.customers[cust_id]['age']
@@ -150,8 +88,8 @@ class Bank:
 
     def load_bank_data(self, file_name):
         with open(file_name, 'r') as file:
-            self.bankname = {}
-            self.employee = {}
+            self.bank_names = {}
+            self.employees = {}
             self.customers_in_banks = {}
             lines = file.readlines()
             bank = ''
@@ -167,10 +105,10 @@ class Bank:
                     if len(parts) == 2:
                         emp_name, emp_age = parts
                         employees.append(emp_name)
-                        self.employee[emp_name] = {'age': int(emp_age), 'bank': bank}
+                        self.employees[emp_name] = {'age': int(emp_age), 'bank': bank}
                 else:
                     if bank:
-                        self.bankname[bank] = employees
+                        self.bank_names[bank] = employees
                         self.customers_in_banks[bank] = assigned_customers
                         employees = []
                         assigned_customers = []

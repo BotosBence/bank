@@ -1,8 +1,9 @@
-from Bank_software import Bank, Customer
-language=int(input("Language/Nyelv/Sprache: [1] English, [2] Magyar, [3] Deutsch: "))
+import bank_customer
+from Bank_software import Bank
+language = int(input("Language/Nyelv/Sprache: [1] English, [2] Magyar, [3] Deutsch: "))
 bank = Bank()
-customer = Customer()
-c=()
+customer = bank_customer.Customer()
+c = ()
 
 if language == 1:
     def print_menu():
@@ -48,7 +49,7 @@ if language == 1:
         elif c == "7":
             bank.list_banks()
             enter = input("--- Press enter to continue --- ")
-        elif c =="8":
+        elif c == "8":
             bank.list_employees
             enter = input("--- Press enter to continue --- ")
         elif c == "9":
@@ -117,7 +118,7 @@ if language == 2:
         elif c == "7":
             bank.list_banks()
             enter = input("--- nyomjon enter-t a tovább haladáshoz --- ")
-        elif c =="8":
+        elif c == "8":
             bank.list_employees
             enter = input("--- nyomjon enter-t a tovább haladáshoz --- ")
         elif c == "9":
@@ -186,7 +187,7 @@ if language == 3:
         elif c == "7":
             bank.list_banks()
             enter = input("--- Drücken Sie die Eingabetaste, um fortzufahren --- ")
-        elif c =="8":
+        elif c == "8":
             bank.list_employees
             enter = input("--- Drücken Sie die Eingabetaste, um fortzufahren --- ")
         elif c == "9":
