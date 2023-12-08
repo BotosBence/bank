@@ -71,6 +71,12 @@ if language == 1:
             for i in bank.customers_in_banks:
                 if i[0] == bank_id:
                     i.append(user_id)
+        elif c == "13":
+            bank.save_bank_data("save.txt")
+            bank.customer_obj.save_customers("save.txt")
+        elif c == "14":
+            bank.load_bank_data("save.txt")
+            bank.customer_obj.load_customers("save.txt")
         elif c == "0":
             print("Exiting the system. Goodbye!")
             break
