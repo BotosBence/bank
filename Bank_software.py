@@ -36,7 +36,7 @@ class Bank:
             del self.employee[employee_name]
             print(f"Employee '{employee_name}' deleted.")
 
-    def list_banks(self, customer_obj):
+    def list_banks(self):
         print("List of Banks and Employees:")
         for bank, employees in self.bankname.items():
             print(f"- {bank}")
@@ -46,16 +46,6 @@ class Bank:
                     print(f"    - {emp}, Age: {self.employee[emp]['age']}")
             else:
                 print("  No employees in this bank.")
-
-            # Display customers assigned to this bank
-            assigned_customers = [cust for cust, details in customer_obj.customers.items() if details['bank'] == bank]
-            if assigned_customers:
-                print("  Customers:")
-                for cust_id in assigned_customers:
-                    print(f"    - ID: {cust_id}, Name: {customer_obj.customers[cust_id]['name']}, Age: {customer_obj.customers[cust_id]['age']}")
-            else:
-                print("  No customers assigned to this bank.")
-
 
     def list_employees(self):
         print("List of Employees:")
