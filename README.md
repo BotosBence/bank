@@ -1,37 +1,51 @@
-Bank szoftver
-Bankok fiókjainak és ügyfeleinek nyilvántartására
+### Bankmenedzsment Rendszer
 
-Szoftveres megvalósítás:
-- Új bank felvétele
-- Új bankfiók felvétele
-- Bankfiókok listázása
-- Bankfiók törlése
-- Ügyfél felvétele
-- Ügyfél listázása
-- Ügyfél törlése
+Ez a Python szkript egy konzol-alapú Bankmenedzsment Rendszer, amely lehetővé teszi a bankok, dolgozók és ügyfelek kezelését. Funkciókat kínál angol, magyar és német nyelveken. A kód importálja a `bank_customer` és `Bank_software` modulokat ügyfél- illetve bankfunkciók kezelésére.
 
+## Használat
 
-Bank osztály
-bankname  lista: [bank neve,székhely]
-bankoffices lista: [bank neve,fiókok]
+### Szkript futtatása
 
+1. Győződjön meg róla, hogy a Python telepítve van a rendszerén.
+2. Futtassa le a szkriptet egy Python környezetben.
 
-Metódusai: 
-__init__(self): listák definiálása
-add_new_bank(self): - új bank felvétele a bankname listába
-check_bank_name:  - a bank bejegyzése létezik-e a bankname listában
+```bash
+python bank_menedzsment_rendszer.py
+```
 
-add_bankoffices(self, újbank_neve): - új bankfiók felvétele
-check_bank(self, bank_neve): - ha nem létezik a bank nevének bejegyzése a bankname listában, 
-						akkor felkínálja a lehetőségét, hogy felveszi.
-del_bankoffices(self): -  kitörli a megadott nevű bankfiókot
-list_bankoffices(self, bankname): - bankfiókok listázása
+### Funkcionalitás
 
+#### Főmenü
 
-Customer osztály
+A szkript egy menüt kínál különböző lehetőségekkel a kiválasztott nyelven:
+- **Bank hozzáadása/törlése**: Bankok hozzáadása vagy törlése a rendszerből.
+- **Dolgozók hozzáadása/törlése**: Dolgozók kezelése különböző bankokban.
+- **Bank/Dolgozó létezésének ellenőrzése**: Bankok vagy dolgozók létezésének ellenőrzése.
+- **Bankok/Dolgozók/Ügyfelek listázása**: Lista megjelenítése elérhető bankokról, dolgozókról vagy ügyfelekről.
+- **Ügyfelek hozzáadása/törlése**: Ügyfelek hozzáadása vagy törlése konkrét bankokhoz kapcsolódva.
+- **Ügyfél hozzárendelése bankhoz**: Ügyfél hozzárendelése adott bankhoz.
+- **Mentés/Betöltés**: Jelenlegi adatok mentése fájlokba vagy adatok betöltése korábban mentett fájlokból.
+- **Kilépés**: Kilépés a programból.
 
-Metódusai: 
-__init__(self):  - customer=[]   ügyfelek lista inicializálása
-last_cust_id(self): - utolsó ügyfélazonostót adja vissza
-add_customer(self): - ügyfél felvétele  
-list_customer(self): - ügyfelek listázása
+#### Nyelvi opciók
+
+- **Angol (1)**: A menü és az üzenetek angolul jelennek meg.
+- **Magyar (2)**: A menü és az üzenetek magyarul jelennek meg.
+- **Német (3)**: A menü és az üzenetek németül jelennek meg.
+
+## Megjegyzések
+
+- A kódban található fordítások szándékosan hiányosak.
+- A szkript az inputot használja a felhasználókkal való interakcióhoz és különböző műveletek végrehajtásához a kiválasztott opciók alapján.
+
+## Követelmények
+
+- Python 3.x
+- `bank_customer.py`
+- `Bank_software.py`
+
+## Hozzájárulók
+
+- BotosBence, GaalZsombor
+  
+---
