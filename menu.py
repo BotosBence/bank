@@ -1,6 +1,12 @@
-from bank import bank
+from Bank_software import Bank, Customer
 
-def system_load(self): # load data from text file (load function is in bank class)
-    pass
-def system_save(self): # save data to text file (save function is in bank class)
-    pass
+bank = Bank()
+bank.add_new_bank('Bank')
+bank.add_employee('John Doe', 30, "Bank")
+bank.list_banks()
+bank.list_employees()
+
+customer = Customer()
+customer.add_customer('Alice', 25)
+customer.add_customer('Bob', 35)
+customer.list_customers()
