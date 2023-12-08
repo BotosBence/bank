@@ -1,7 +1,7 @@
 from Bank_software import Bank, Customer
 import time
 import random
-language=int(input("Language/Nyelv/Sprache: 1 English, 2 Magyar, 3 Deutsch"))
+language=int(input("Language/Nyelv/Sprache: [1] English, [2] Magyar, [3] Deutsch: "))
 bank = Bank()
 customer = Customer()
 c=()
@@ -49,8 +49,10 @@ if language==1:
             bank.del_employee(employee_name)
         elif c == "7":
             bank.list_banks()
+            enter = input("--- Press enter to continue --- ")
         elif c =="8":
             bank.list_employees
+            enter = input("--- Press enter to continue --- ")
         elif c == "9":
             cust_name = input("Enter customer name: ")
             age = int(input("Enter customer age: "))
@@ -62,13 +64,12 @@ if language==1:
             customer.del_customer(cust_id)
         elif c == "11":
             customer.list_customers()
+            enter = input("--- Press enter to continue --- ")
         elif c == "0":
             print("Exiting the system. Goodbye!")
             break
         else:
             print("Invalid. Please try again.")
-        if c== 7 or 8 or 12:
-            time.sleep(random.random())
 
 if language==2:
     def print_menu1():
@@ -113,8 +114,10 @@ if language==2:
             bank.del_employee(employee_name)
         elif c == "7":
             bank.list_banks()
+            enter = input("--- Press enter to continue --- ")
         elif c =="8":
             bank.list_employees
+            enter = input("--- Press enter to continue --- ")
         elif c == "9":
             cust_name = input("Felhasználó neve: ")
             age = int(input("felhasználó kora: "))
@@ -126,13 +129,13 @@ if language==2:
             customer.del_customer(cust_id)
         elif c == "11":
             customer.list_customers()
+            enter = input("--- Press enter to continue --- ")
         elif c == "0":
             print("Kilépés, köszönjük hogy ezt a programot használja!")
             break
         else:
             print("Hibás választás")
-        if c== 7 or 8 or 12:
-            time.sleep(random.random())
+
 if language==3:
     def print_menu2():
         print("menu:")
@@ -176,8 +179,10 @@ if language==3:
             bank.del_employee(employee_name)
         elif c == "7":
             bank.list_banks()
+            enter = input("--- Press enter to continue --- ")
         elif c =="8":
             bank.list_employees
+            enter = input("--- Press enter to continue --- ")
         elif c == "9":
             cust_name = input("Benutzer name: ")
             age = int(input("alt aus der benutzer: "))
@@ -189,10 +194,9 @@ if language==3:
             customer.del_customer(cust_id)
         elif c == "11":
             customer.list_customers()
+            enter = input("--- Press enter to continue --- ")
         elif c == "0":
             print("Ausfhart, danke für du zu whälen eure program!")
             break
         else:
             print("falsche entscheidung")
-        if c== 7 or 8 or 12:
-            time.sleep(random.random())
