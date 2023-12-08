@@ -63,9 +63,7 @@ class Bank:
                     print(f"    -Name: {emp}, Age: {self.employees[emp]['age']}")
             else:
                 print("  No employees in this bank.")
-            for customer_bank in self.customers_in_banks:
-                if customer_bank[0] == bank:
-                    print(customer_bank)
+            self.customer_obj.list_bank_customer(bank)
 
     def list_employees(self):
         print("Employees:")
@@ -76,15 +74,15 @@ class Bank:
         with open(filename, 'w') as file:
             file.write("Bank Names:\n")
             for bank_name, employees in self.bank_names.items():
-                file.write(f"{bank_name}: {employees}\n")
+                file.write(f"{bank_name}: {','.join(employees)}\n")
 
             file.write("\nEmployees:\n")
             for employee, details in self.employees.items():
-                file.write(f"{employee}: {details}\n")
+                file.write(f"{employee}: {details['age']},{details['bank']}\n")
 
             file.write("\nCustomers in Banks:\n")
             for bank_customer in self.customers_in_banks:
-                file.write(f"{bank_customer[0]}: {bank_customer[1]}\n")
+                file.write(f"{bank_customer[0]}: {','.join(bank_customer[1])}\n")
 
         print(f"Data saved to '{filename}'.")
 
@@ -107,12 +105,13 @@ class Bank:
                 elif line:
                     if current_section == 'bank_names':
                         bank_name, employees = line.split(': ')
-                        self.bank_names[bank_name] = eval(employees)
+                        self.bank_names[bank_name] = employees.split(',')
                     elif current_section == 'employees':
                         employee, details = line.split(': ')
-                        self.employees[employee] = eval(details)
+                        age, bank = details.split(',')
+                        self.employees[employee] = {'age': int(age), 'bank': bank}
                     elif current_section == 'customers_in_banks':
                         bank_name, customers = line.split(': ')
-                        self.customers_in_banks.append([bank_name, eval(customers)])
+                        self.customers_in_banks.append([bank_name, customers.split(',')])
 
         print(f"Data loaded from '{filename}'.")

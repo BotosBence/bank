@@ -77,7 +77,7 @@ if language == 1:
             bank.save_to_file()
             bank.customer_obj.save_to_file()
         elif c == "14":
-            bank.load_from_file("save.txt")
+            bank.load_from_file()
             bank.customer_obj.load_from_file()
         elif c == "0":
             print("Exiting the system. Goodbye!")
