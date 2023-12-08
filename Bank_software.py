@@ -1,13 +1,52 @@
+class Customer:
+    def __init__(self):
+        # Szótár az ügyfél részleteinek tárolására az azonosítójukkal kulcsként
+        self.customers = {}
+
+    def last_cust_id(self):
+        # Visszaadja az utolsó hozzáadott ügyfél azonosítóját
+        return max(self.customers.keys()) if self.customers else 0
+
+    def add_customer(self, cust_name, age, bank):
+        # Új ügyfél hozzáadása nevével, életkorával és kezdetben hozzárendelt bank nélkül
+        last_id = self.last_cust_id()
+        self.customers[last_id + 1] = {'name': cust_name, 'age': age, 'bank': bank}
+
+    def assign_bank(self, cust_id, bank_name):
+        # Bank hozzárendelése a megadott ügyfélhez
+        if cust_id in self.customers:
+            self.customers[cust_id]['bank'] = bank_name
+            print(f"A(z) '{bank_name}' bank hozzárendelve a(z) '{cust_id}' azonosítójú ügyfélhez.")
+
+    def del_customer(self, cust_id):
+        # Megadott ügyfél törlése
+        if cust_id in self.customers:
+            del self.customers[cust_id]
+            print(f"A(z) '{cust_id}' azonosítójú ügyfél törölve.")
+
+    def list_customers(self):
+        # Az ügyfél és részleteik listázása, beleértve a hozzárendelt bankot
+        print("Ügyfelek listája:")
+        for cust_id, details in self.customers.items():
+            bank = details['bank'] if details['bank'] else "Nincs hozzárendelve"
+            print(f"- Azonosító: {cust_id}, Név: {details['name']}, Életkor: {details['age']}, Bank: {bank}")
+
+
 class Bank:
     def __init__(self):
         # Szótár a banknevek tárolására kulcsként, alkalmazottak listájával értékül
         self.bankname = {}
         # Szótár az alkalmazottak részleteinek tárolására, az alkalmazott nevével kulcsként
         self.employee = {}
+        # Szótár a bankokhoz hozzárendelt ügyfelek tárolására
+        self.customers_in_banks = {}
+        # Meghívja a customer osztályt
+        self.customer_obj = Customer()
 
     def add_new_bank(self, bank_name):
-        # Új bank hozzáadása üres alkalmazottak listájával
+        # Új bank hozzáadása üres alkalmazottak és ügyfél listájával
         self.bankname[bank_name] = []
+        self.customers_in_banks[bank_name] = []
 
     def add_employee(self, employee_name, age, bank_name):
         # Alkalmazott hozzáadása a megadott bankhoz
@@ -16,6 +55,13 @@ class Bank:
             self.employee[employee_name] = {'age': age, 'bank': bank_name}
             # Alkalmazott hozzáadása a bank alkalmazottainak listájához
             self.bankname[bank_name].append(employee_name)
+        else:
+            print(f"A(z) '{bank_name}' bank nem létezik.")
+
+    def add_customer_to_bank(self, cust_id, bank_name):
+        # Ügyfelek hozzáadása a megadott bankhoz
+        if bank_name in self.customers_in_banks:
+            self.customers_in_banks[bank_name].append(cust_id)
         else:
             print(f"A(z) '{bank_name}' bank nem létezik.")
 
@@ -47,8 +93,8 @@ class Bank:
             print(f"A(z) '{employee_name}' alkalmazott törölve.")
 
     def list_banks(self):
-        # Bankok és alkalmazottak listázása
-        print("Bankok és alkalmazottak listája:")
+        # Bankok, alkalmazottak és a bankokhoz hozzárendelt ügyfelek listázása
+        print("Bankok, alkalmazottak és a bankokhoz hozzárendelt ügyfelek listája:")
         for bank, employees in self.bankname.items():
             print(f"- {bank}")
             if employees:
@@ -58,42 +104,17 @@ class Bank:
             else:
                 print("  Nincsenek alkalmazottak ebben a bankban.")
 
+            assigned_customers = self.customers_in_banks[bank]
+            if assigned_customers:
+                print("  Ügyfelek:")
+                for cust_id in assigned_customers:
+                    # Ügyfél részleteinek lekérése a Customer osztályból és kiírása
+                    print(f"    - Azonosító: {cust_id}, Név: {self.customer_obj.customers[cust_id]['name']}, Életkor: {self.customer_obj.customers[cust_id]['age']}")
+            else:
+                print("  Nincsenek ügyfelek hozzárendelve ehhez a bankhoz.")
+
     def list_employees(self):
         # Alkalmazottak listázása
         print("Alkalmazottak listája:")
         for emp, details in self.employee.items():
             print(f"- {emp}, Életkor: {details['age']}")
-
-
-class Customer:
-    def __init__(self):
-        # Szótár az ügyfél részleteinek tárolására az azonosítójukkal kulcsként
-        self.customers = {}
-
-    def last_cust_id(self):
-        # Visszaadja az utolsó hozzáadott ügyfél azonosítóját
-        return max(self.customers.keys()) if self.customers else 0
-
-    def add_customer(self, cust_name, age):
-        # Új ügyfél hozzáadása nevével, életkorával és kezdetben hozzárendelt bank nélkül
-        last_id = self.last_cust_id()
-        self.customers[last_id + 1] = {'name': cust_name, 'age': age, 'bank': None}
-
-    def assign_bank(self, cust_id, bank_name):
-        # Bank hozzárendelése a megadott ügyfélhez
-        if cust_id in self.customers:
-            self.customers[cust_id]['bank'] = bank_name
-            print(f"A(z) '{bank_name}' bank hozzárendelve a(z) '{cust_id}' azonosítójú vevőhöz.")
-
-    def del_customer(self, cust_id):
-        # Megadott ügyfél törlése
-        if cust_id in self.customers:
-            del self.customers[cust_id]
-            print(f"A(z) '{cust_id}' azonosítójú vevő törölve.")
-
-    def list_customers(self):
-        # Az ügyfél és részleteik listázása, beleértve a hozzárendelt bankot
-        print("Vevők listája:")
-        for cust_id, details in self.customers.items():
-            bank = details['bank'] if details['bank'] else "Nincs hozzárendelve"
-            print(f"- Azonosító: {cust_id}, Név: {details['name']}, Életkor: {details['age']}, Bank: {bank}")
