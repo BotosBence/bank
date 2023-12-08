@@ -4,7 +4,7 @@ bank = Bank()
 customer = Customer()
 c=()
 
-if language==1:
+if language == 1:
     def print_menu():
         print("Menü:")
         print("1. Add new bank")
@@ -21,7 +21,7 @@ if language==1:
         print("12. Assign bank to customer")
         print("0. Exit")
 
-    while c!= 0:
+    while c != 0:
         print_menu()
         c = input("Enter your choice: ")
 
@@ -73,7 +73,7 @@ if language==1:
         else:
             print("Invalid. Please try again.")
 
-if language==2:
+if language == 2:
     def print_menu1():
         print("Menü:")
         print("1. Új bank")
@@ -90,7 +90,7 @@ if language==2:
         print("12. Felhasználó bankhoz adása")
         print("0. Kilépés")
 
-    while c!= 0:
+    while c != 0:
         print_menu1()
         c = input("Választott menüpont: ")
 
@@ -142,7 +142,7 @@ if language==2:
         else:
             print("Hibás választás")
 
-if language==3:
+if language == 3:
     def print_menu2():
         print("menu:")
         print("1. Neue bank")
@@ -159,7 +159,7 @@ if language==3:
         print("12. Hinzufügen eines Benutzers zur bank")
         print("0. Ausfhart")
 
-    while c!= 0:
+    while c != 0:
         print_menu2()
         c = input("Asgewählten menüponkt: ")
 

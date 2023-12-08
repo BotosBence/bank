@@ -117,14 +117,15 @@ class Bank:
                     print(f"    -Név: {emp}, Életkor: {self.employee[emp]['age']}")
             else:
                 print("  Nincsenek alkalmazottak ebben a bankban.")
-            assigned_customers = self.customers_in_banks[bank]
-            if assigned_customers:
-                print("  Ügyfelek:")
-                for cust_id in assigned_customers:
-                    # Ügyfél részleteinek lekérése a Customer osztályból és kiírása
-                    print(f"    - Azonosító: {cust_id}, Név: {self.customer_obj.customers[cust_id]['name']}, Életkor: {self.customer_obj.customers[cust_id]['age']}")
-            else:
-                print("  Nincsenek ügyfelek hozzárendelve ehhez a bankhoz.")
+            if bank in self.customers_in_banks:
+                assigned_customers = self.customers_in_banks[bank]
+                if assigned_customers:
+                    print("  Ügyfelek:")
+                    for cust_id in assigned_customers:
+                        # Ügyfél részleteinek lekérése a Customer osztályból és kiírása
+                        print(f"    - Azonosító: {cust_id}, Név: {self.customer_obj.customers[cust_id]['name']}, Életkor: {self.customer_obj.customers[cust_id]['age']}")
+                else:
+                    print("  Nincsenek ügyfelek hozzárendelve ehhez a bankhoz.")
 
     def list_employees(self):
         # Alkalmazottak listázása
