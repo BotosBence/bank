@@ -35,6 +35,8 @@ class Bank:
             create = input(f"The bank '{bank_name}' does not exist. Create? (y/n): ")    # Ellenőrzi, hogy a megadott bank létezik-e
             if create.lower() == 'y':
                 self.add_new_bank(bank_name)
+        else:
+            print("This bank exist")
 
     def check_employee(self, employee_name):
         if employee_name not in self.employees:
@@ -42,6 +44,8 @@ class Bank:
             if create.lower() == 'yes':
                 age = int(input("Employee's age: "))
                 self.add_employee(employee_name, age, None)
+        else:
+            print("This employe exist")
 
     def del_bank(self, bank_name):
         if bank_name in self.bank_names:

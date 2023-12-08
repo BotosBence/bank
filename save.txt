@@ -1,7 +1,0 @@
-Bank Names:
-asd: asd
-
-Employees:
-asd: 23,asd
-
-Customers in Banks:
