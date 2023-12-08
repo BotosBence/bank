@@ -1,38 +1,38 @@
-Bank szoftver
-Bankok fiókjainak és ügyfeleinek nyilvántartására
-
-Szoftveres megvalósítás:
-- Új bank felvétele
-- Új bankfiók felvétele
-- Bankfiókok listázása
-- Bankfiók törlése
-- Ügyfél felvétele
-- Ügyfél listázása
-- Ügyfél törlése
+Bank_software.py:
 
 
-Bank osztály
-bankname  lista: [bank neve,székhely]
-bankoffices lista: [bank neve,fiókok]
-
+bank osztály:
 
 Metódusai: 
-__init__(self): listák definiálása
+__init__(self): listák definiálása:
+bankname  szótár = {bank 1 neve: bank 1 alkalmazotjainak nevei, bank 2 neve: bank 2 alkalmazotjainak nevei}
+employe szótár = {alkalmazott 1: alkalmazott 1 korra, alkalmazott 2: alkalmazott 2 korra}
+
 add_new_bank(self): - új bank felvétele a bankname listába
-check_bank_name:  - a bank bejegyzése létezik-e a bankname listában
+add_employe(self): - új alkalmazott felvétele
 
-add_bankoffices(self, újbank_neve): - új bankfiók felvétele
-check_bank(self, bank_neve): - ha nem létezik a bank nevének bejegyzése a bankname listában, 
-						akkor felkínálja a lehetőségét, hogy felveszi.
-del_bankoffices(self): -  kitörli a megadott nevű bankfiókot
-list_bankoffices(self, bankname): - bankfiókok listázása
+check_bank(self, bankname): - ha nem létezik a bank neve a bankname listában, akkor felkínálja a lehetőségét, hogy felveszi.
+check_employe(self, employe): -  ha nem létezik az alkalmazott neve az employe listában, akkor felkínálja a lehetőségét, hogy felveszi.
 
+del_bank(self): -  kitörli a megadott nevű bankot
+del_employe(self, employe): - kitörli a megadott nevű alkalmazottat
 
-Customer osztály
+list_bank(self, bankname): - bankfiókok listázása
+list_employe(self, employe): - alkalmazottak listázása
+
+customer osztály:
 
 Metódusai: 
-__init__(self):  - customer=[]   ügyfelek lista inicializálása
+
+__init__(self):  - customers = {ügyfél id: ügyfél neve, ügyfél korra} ügyfelek lista inicializálása
 last_cust_id(self): - utolsó ügyfélazonostót adja vissza
-add_customer(self): - ügyfél felvétele  
+add_customer(self): - ügyfél felvétele
+del_customer(self): -  kitörli a megadott nevű ügyfelet
 list_customer(self): - ügyfelek listázása
- 
+
+
+Menu.py -ban:
+- import Bank_software.py
+- menü a bank osztály és a customer osztály segítségével
+- Adat mentés save.txt -be
+- Adat betöltése save.txt -böl
