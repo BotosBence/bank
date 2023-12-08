@@ -1,5 +1,6 @@
 from Bank_software import Bank, Customer
 import time
+import random
 language=int(input("Language/Nyelv/Sprache: 1 English, 2 Magyar, 3 Deutsch"))
 bank = Bank()
 customer = Customer()
@@ -53,15 +54,13 @@ if language==1:
         elif c == "9":
             cust_name = input("Enter customer name: ")
             age = int(input("Enter customer age: "))
-            customer.add_customer(cust_name, age, bank)
+            bank_name = input("Enter bank name to assign customer: ")
+            bank.check_bank(bank_name)
+            bank.customer_obj.add_customer(cust_name, age, bank_name)
         elif c == "10":
-            cust_id = int(input("Enter customer ID: "))
-            bank_name = input("Enter bank name to assign: ")
-            customer.assign_bank(cust_id, bank_name)
-        elif c == "11":
             cust_id = int(input("Enter customer ID to delete: "))
             customer.del_customer(cust_id)
-        elif c == "12":
+        elif c == "11":
             customer.list_customers()
         elif c == "0":
             print("Exiting the system. Goodbye!")
@@ -69,7 +68,7 @@ if language==1:
         else:
             print("Invalid. Please try again.")
         if c== 7 or 8 or 12:
-            time.sleep(10)
+            time.sleep(random.random())
 
 if language==2:
     def print_menu1():
@@ -118,16 +117,14 @@ if language==2:
             bank.list_employees
         elif c == "9":
             cust_name = input("Felhasználó neve: ")
-            age = int(input("Felhasználó kora: "))
-            customer.add_customer(cust_name, age)
+            age = int(input("felhasználó kora: "))
+            bank_name = input("bank ahol dolgozik: ")
+            bank.check_bank(bank_name)
+            bank.customer_obj.add_customer(cust_name, age, bank_name)
         elif c == "10":
-            cust_id = int(input("Felhasználó ID-ja: "))
-            bank_name = input("Felhasználó bankhoz rendelése: ")
-            customer.assign_bank(cust_id, bank_name)
-        elif c == "11":
             cust_id = int(input("Felhasználó törléséhez id megadása: "))
             customer.del_customer(cust_id)
-        elif c == "12":
+        elif c == "11":
             customer.list_customers()
         elif c == "0":
             print("Kilépés, köszönjük hogy ezt a programot használja!")
@@ -135,7 +132,7 @@ if language==2:
         else:
             print("Hibás választás")
         if c== 7 or 8 or 12:
-            time.sleep(10)
+            time.sleep(random.random())
 if language==3:
     def print_menu2():
         print("menu:")
@@ -182,17 +179,15 @@ if language==3:
         elif c =="8":
             bank.list_employees
         elif c == "9":
-            cust_name = input("ame aus der benutzer: ")
-            age = int(input("Alt aus der benutzer: "))
-            customer.add_customer(cust_name, age)
+            cust_name = input("Benutzer name: ")
+            age = int(input("alt aus der benutzer: "))
+            bank_name = input("Name aus der bank im whelche er/sie arbaite: ")
+            bank.check_bank(bank_name)
+            bank.customer_obj.add_customer(cust_name, age, bank_name)
         elif c == "10":
-            cust_id = int(input("Benutzer-ID: "))
-            bank_name = input("Der bank im welche sie/er arbaiten: ")
-            customer.assign_bank(cust_id, bank_name)
-        elif c == "11":
             cust_id = int(input("id für löschen benutzer: "))
             customer.del_customer(cust_id)
-        elif c == "12":
+        elif c == "11":
             customer.list_customers()
         elif c == "0":
             print("Ausfhart, danke für du zu whälen eure program!")
@@ -200,4 +195,4 @@ if language==3:
         else:
             print("falsche entscheidung")
         if c== 7 or 8 or 12:
-            time.sleep(10)
+            time.sleep(random.random())

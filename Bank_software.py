@@ -68,8 +68,8 @@ class Bank:
     def check_bank(self, bank_name):
         # Ellenőrzi, hogy létezik-e a bank, ha nem, felkínálja a létrehozását
         if bank_name not in self.bankname:
-            create = input(f"A(z) '{bank_name}' bank nem létezik. Szeretné létrehozni? (igen/nem): ")
-            if create.lower() == 'igen':
+            create = input(f"A(z) '{bank_name}' bank nem létezik. Szeretné létrehozni? (y/n): ")
+            if create.lower() == 'y':
                 self.add_new_bank(bank_name)
 
     def check_employee(self, employee_name):
