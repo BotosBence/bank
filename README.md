@@ -46,12 +46,6 @@ A szkript egy menüt kínál különböző lehetőségekkel a kiválasztott nyel
 
 ## Hozzájárulók
 
-- [Az Ön/hozzájáruló neve]
+- BotosBence, GaalZsombor
   
-## Licenc
-
-Ez a projekt [Licenc neve] alatt van engedélyezve. (Adj hozzá licencinformációt, ha van.)
-
 ---
-
-Írj hozzá bármilyen további információt a hozzájárulókról, licencről vagy konkrét utasításokat a szkript használatához a saját kontextusodban.
