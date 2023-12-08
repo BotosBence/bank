@@ -29,6 +29,7 @@ if language == 1:
         if c == "1":
             bank_name = input("Enter the name of the new bank: ")
             bank.add_new_bank(bank_name)
+            print(len(bank.customer_obj.customers))
         elif c == "2":
             employee_name = input("Enter employee name: ")
             age = int(input("Enter employee age: "))
@@ -60,14 +61,16 @@ if language == 1:
             bank.customer_obj.add_customer(cust_name, age, bank_name)
         elif c == "10":
             cust_id = int(input("Enter customer ID to delete: "))
-            customer.del_customer(cust_id)
+            customer.delete_customer(cust_id)
         elif c == "11":
             customer.list_customers()
             enter = input("--- Press enter to continue --- ")
         elif c == "12":
             user_id = input("Please give the customers ID: ")
             bank_id = input("Please give the banks name that you want your customer to be assigned to: ")
-            customer.assign_bank(user_id, bank_id)
+            for i in bank.customers_in_banks:
+                if i[0] == bank_id:
+                    i.append(user_id)
         elif c == "0":
             print("Exiting the system. Goodbye!")
             break
@@ -129,14 +132,16 @@ if language == 2:
             bank.customer_obj.add_customer(cust_name, age, bank_name)
         elif c == "10":
             cust_id = int(input("Felhasználó törléséhez id megadása: "))
-            customer.del_customer(cust_id)
+            customer.delete_customer(cust_id)
         elif c == "11":
             customer.list_customers()
             enter = input("--- nyomjon enter-t a tovább haladáshoz --- ")
         elif c == "12":
             user_id = input("Kérem adja meg az ügyfél id-ját: ")
             bank_id = input("Kérem adja meg a bank nevét amihez hozzá szeretné addni az ügyfelet: ")
-            customer.assign_bank(user_id, bank_id)
+            for i in bank.customers_in_banks:
+                if i[0] == bank_id:
+                    i.append(user_id)
         elif c == "0":
             print("Kilépés, köszönjük hogy ezt a programot használja!")
             break
@@ -198,14 +203,16 @@ if language == 3:
             bank.customer_obj.add_customer(cust_name, age, bank_name)
         elif c == "10":
             cust_id = int(input("ID für löschen benutzer: "))
-            customer.del_customer(cust_id)
+            customer.delete_customer(cust_id)
         elif c == "11":
             customer.list_customers()
             enter = input("--- Drücken Sie die Eingabetaste, um fortzufahren --- ")
         elif c == "12":
             user_id = input("Bitte geben Sie die Kunden-ID an: ")
             bank_id = input("Bitte geben Sie den Namen der Bank an, der Ihr Kunde zugeordnet werden soll: ")
-            customer.assign_bank(user_id, bank_id)
+            for i in bank.customers_in_banks:
+                if i[0] == bank_id:
+                    i.append(user_id)
         elif c == "0":
             print("Ausfhart, danke für du zu whälen eure program!")
             break

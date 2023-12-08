@@ -5,7 +5,7 @@ class Bank:
     def __init__(self):
         self.bank_names = {}
         self.employees = {}
-        self.customers_in_banks = [] # [bank_name, [cust_ids]]
+        self.customers_in_banks = []    # [bank_name, [cust_ids]]
         self.customer_obj = bank_customer.Customer()
 
     def add_new_bank(self, bank_name):
@@ -53,7 +53,6 @@ class Bank:
             del self.employees[employee_name]
             print(f"The employee '{employee_name}' has been deleted.")
 
-
     def list_banks(self):
         print("Banks, employees, and assigned customers:")
         for bank, employees in self.bank_names.items():
@@ -64,17 +63,10 @@ class Bank:
                     print(f"    -Name: {emp}, Age: {self.employees[emp]['age']}")
             else:
                 print("  No employees in this bank.")
-            if bank in self.customer_obj.customers:
-                assigned_customers = self.customers_in_banks[bank]
-                if assigned_customers:
-                    print("  Customers:")
-                    for cust_id in assigned_customers:
-                        print(f"    -ID: {cust_id}, Name: {self.customer_obj.customers[cust_id]['name']}, Age: {self.customer_obj.customers[cust_id]['age']}")
-                else:
-                    print("  No customers assigned to this bank.")
-            else:
-                print("  There are no customers")
-                print(self.customer_obj.customers)
+            print(self.customers_in_banks)
+            for customer_bank in self.customers_in_banks:
+                if customer_bank[0] == bank:
+                    print(customer_bank)
 
     def list_employees(self):
         print("Employees:")
