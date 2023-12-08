@@ -1,6 +1,4 @@
 from Bank_software import Bank, Customer
-import time
-import random
 language=int(input("Language/Nyelv/Sprache: [1] English, [2] Magyar, [3] Deutsch: "))
 bank = Bank()
 customer = Customer()
@@ -8,7 +6,7 @@ c=()
 
 if language==1:
     def print_menu():
-        print("menü:")
+        print("Menü:")
         print("1. Add new bank")
         print("2. Add employee")
         print("3. Check bank ")
@@ -18,9 +16,9 @@ if language==1:
         print("7. List banks")
         print("8. List employees")
         print("9. Add new customer")
-        print("10. Assign bank to customer")
-        print("11. Delete customer")
-        print("12. List customers")
+        print("10. Delete customer")
+        print("11. List customers")
+        print("12. Assign bank to customer")
         print("0. Exit")
 
     while c!= 0:
@@ -65,6 +63,10 @@ if language==1:
         elif c == "11":
             customer.list_customers()
             enter = input("--- Press enter to continue --- ")
+        elif c == "12":
+            user_id = input("Please give the customers ID: ")
+            bank_id = input("Please give the banks name that you want your customer to be assigned to: ")
+            customer.assign_bank(user_id, bank_id)
         elif c == "0":
             print("Exiting the system. Goodbye!")
             break
@@ -73,20 +75,20 @@ if language==1:
 
 if language==2:
     def print_menu1():
-        print("menü:")
+        print("Menü:")
         print("1. Új bank")
         print("2. Új dolgozó")
         print("3. Bank létezésének ellenőrzése ")
         print("4. Dolgozó létezésének ellenőrzése ")
-        print("5. bank törlése")
-        print("6. dolgozó törlése")
-        print("7. bankokm listája")
-        print("8. dolgozók listája")
-        print("9. új felhasználó")
-        print("10. felhasználó bankhoz adása")
-        print("11. felhasználó törlése")
-        print("12. felhasználók listázása")
-        print("0. kilépés")
+        print("5. Bank törlése")
+        print("6. Dolgozó törlése")
+        print("7. Bankok listája")
+        print("8. Dolgozók listája")
+        print("9. Új felhasználó")
+        print("10. Felhasználó törlése")
+        print("11. Felhasználók listázása")
+        print("12. Felhasználó bankhoz adása")
+        print("0. Kilépés")
 
     while c!= 0:
         print_menu1()
@@ -110,18 +112,18 @@ if language==2:
             bank_name = input("Törlendő bank neve: ")
             bank.del_bank(bank_name)
         elif c == "6":
-            employee_name = input("törlendő dolgozó neve: ")
+            employee_name = input("Törlendő dolgozó neve: ")
             bank.del_employee(employee_name)
         elif c == "7":
             bank.list_banks()
-            enter = input("--- Press enter to continue --- ")
+            enter = input("--- nyomjon enter-t a tovább haladáshoz --- ")
         elif c =="8":
             bank.list_employees
-            enter = input("--- Press enter to continue --- ")
+            enter = input("--- nyomjon enter-t a tovább haladáshoz --- ")
         elif c == "9":
             cust_name = input("Felhasználó neve: ")
-            age = int(input("felhasználó kora: "))
-            bank_name = input("bank ahol dolgozik: ")
+            age = int(input("Felhasználó kora: "))
+            bank_name = input("Bank ahol dolgozik: ")
             bank.check_bank(bank_name)
             bank.customer_obj.add_customer(cust_name, age, bank_name)
         elif c == "10":
@@ -129,7 +131,11 @@ if language==2:
             customer.del_customer(cust_id)
         elif c == "11":
             customer.list_customers()
-            enter = input("--- Press enter to continue --- ")
+            enter = input("--- nyomjon enter-t a tovább haladáshoz --- ")
+        elif c == "12":
+            user_id = input("Kérem adja meg az ügyfél id-ját: ")
+            bank_id = input("Kérem adja meg a bank nevét amihez hozzá szeretné addni az ügyfelet: ")
+            customer.assign_bank(user_id, bank_id)
         elif c == "0":
             print("Kilépés, köszönjük hogy ezt a programot használja!")
             break
@@ -143,19 +149,19 @@ if language==3:
         print("2. Neue arbeiter")
         print("3. Überprüfung der existenz enier bank ")
         print("4. Überprüfung der existenz enier arbeiter ")
-        print("5. löschen bank")
+        print("5. Löschen bank")
         print("6. Löschen arbeiter")
-        print("7. liste der banken")
-        print("8. liste der arbaiter")
+        print("7. Liste der banken")
+        print("8. Liste der arbaiter")
         print("9. Neue benutzer")
-        print("10. Hinzufügen eines Benutzers zur bank")
-        print("11. Löschen benutzer")
-        print("12. Liste der benutzer")
-        print("0. ausfhart")
+        print("10. Löschen benutzer")
+        print("11. Liste der benutzer")
+        print("12. Hinzufügen eines Benutzers zur bank")
+        print("0. Ausfhart")
 
     while c!= 0:
         print_menu2()
-        c = input("asgewählten menüponkt: ")
+        c = input("Asgewählten menüponkt: ")
 
         if c == "1":
             bank_name = input("Name aus der bank: ")
@@ -179,24 +185,28 @@ if language==3:
             bank.del_employee(employee_name)
         elif c == "7":
             bank.list_banks()
-            enter = input("--- Press enter to continue --- ")
+            enter = input("--- Drücken Sie die Eingabetaste, um fortzufahren --- ")
         elif c =="8":
             bank.list_employees
-            enter = input("--- Press enter to continue --- ")
+            enter = input("--- Drücken Sie die Eingabetaste, um fortzufahren --- ")
         elif c == "9":
             cust_name = input("Benutzer name: ")
-            age = int(input("alt aus der benutzer: "))
+            age = int(input("Alt aus der benutzer: "))
             bank_name = input("Name aus der bank im whelche er/sie arbaite: ")
             bank.check_bank(bank_name)
             bank.customer_obj.add_customer(cust_name, age, bank_name)
         elif c == "10":
-            cust_id = int(input("id für löschen benutzer: "))
+            cust_id = int(input("ID für löschen benutzer: "))
             customer.del_customer(cust_id)
         elif c == "11":
             customer.list_customers()
-            enter = input("--- Press enter to continue --- ")
+            enter = input("--- Drücken Sie die Eingabetaste, um fortzufahren --- ")
+        elif c == "12":
+            user_id = input("Bitte geben Sie die Kunden-ID an: ")
+            bank_id = input("Bitte geben Sie den Namen der Bank an, der Ihr Kunde zugeordnet werden soll: ")
+            customer.assign_bank(user_id, bank_id)
         elif c == "0":
             print("Ausfhart, danke für du zu whälen eure program!")
             break
         else:
-            print("falsche entscheidung")
+            print("Falsche entscheidung")

@@ -2,6 +2,7 @@ class Customer:
     def __init__(self):
         # Szótár az ügyfél részleteinek tárolására az azonosítójukkal kulcsként
         self.customers = {}
+        self.bank_customer_list = {}
 
     def last_cust_id(self):
         # Visszaadja az utolsó hozzáadott ügyfél azonosítóját
@@ -16,6 +17,7 @@ class Customer:
         # Bank hozzárendelése a megadott ügyfélhez
         if cust_id in self.customers:
             self.customers[cust_id]['bank'] = bank_name
+            self.bank_customer_list[bank_name] = self.customers[cust_id]
             print(f"A(z) '{bank_name}' bank hozzárendelve a(z) '{cust_id}' azonosítójú ügyfélhez.")
 
     def del_customer(self, cust_id):
@@ -31,6 +33,19 @@ class Customer:
             bank = details['bank'] if details['bank'] else "Nincs hozzárendelve"
             print(f"- Azonosító: {cust_id}, Név: {details['name']}, Életkor: {details['age']}, Bank: {bank}")
 
+    def save_customers(self, file_name):
+        with open(file_name, 'w') as file:
+            for cust_id, details in self.customers.items():
+                bank = details['bank'] if details['bank'] else "Nincs hozzárendelve"
+                file.write(f"{cust_id}:{details['name']}:{details['age']}:{bank}\n")
+
+    def load_customers(self, file_name):
+        with open(file_name, 'r') as file:
+            self.customers = {}
+            lines = file.readlines()
+            for line in lines:
+                cust_id, name, age, bank = line.strip().split(':')
+                self.customers[int(cust_id)] = {'name': name, 'age': int(age), 'bank': bank}
 
 class Bank:
     def __init__(self):
@@ -46,7 +61,6 @@ class Bank:
     def add_new_bank(self, bank_name):
         # Új bank hozzáadása üres alkalmazottak és ügyfél listájával
         self.bankname[bank_name] = []
-        self.customers_in_banks[bank_name] = []
 
     def add_employee(self, employee_name, age, bank_name):
         # Alkalmazott hozzáadása a megadott bankhoz
@@ -100,10 +114,9 @@ class Bank:
             if employees:
                 print("  Alkalmazottak:")
                 for emp in employees:
-                    print(f"    - {emp}, Életkor: {self.employee[emp]['age']}")
+                    print(f"    -Név: {emp}, Életkor: {self.employee[emp]['age']}")
             else:
                 print("  Nincsenek alkalmazottak ebben a bankban.")
-
             assigned_customers = self.customers_in_banks[bank]
             if assigned_customers:
                 print("  Ügyfelek:")
@@ -118,3 +131,46 @@ class Bank:
         print("Alkalmazottak listája:")
         for emp, details in self.employee.items():
             print(f"- {emp}, Életkor: {details['age']}")
+
+    def save_bank_data(self, file_name):
+        with open(file_name, 'w') as file:
+            for bank, employees in self.bankname.items():
+                file.write(f"{bank}:\n")
+                for emp in employees:
+                    file.write(f"    {emp}:{self.employee[emp]['age']}\n")
+                file.write('\n')
+
+                assigned_customers = self.customers_in_banks[bank]
+                for cust_id in assigned_customers:
+                    name = self.customer_obj.customers[cust_id]['name']
+                    age = self.customer_obj.customers[cust_id]['age']
+                    file.write(f"    {cust_id}:{name}:{age}\n")
+                file.write('\n')
+
+    def load_bank_data(self, file_name):
+        with open(file_name, 'r') as file:
+            self.bankname = {}
+            self.employee = {}
+            self.customers_in_banks = {}
+            lines = file.readlines()
+            bank = ''
+            employees = []
+            assigned_customers = []
+            for line in lines:
+                if line.startswith('-'):
+                    cust_id, name, age = line.strip().split(':')[1:]
+                    assigned_customers.append(int(cust_id))
+                    self.customer_obj.customers[int(cust_id)] = {'name': name, 'age': int(age)}
+                elif line.startswith(' '):
+                    parts = line.strip().split(':')
+                    if len(parts) == 2:
+                        emp_name, emp_age = parts
+                        employees.append(emp_name)
+                        self.employee[emp_name] = {'age': int(emp_age), 'bank': bank}
+                else:
+                    if bank:
+                        self.bankname[bank] = employees
+                        self.customers_in_banks[bank] = assigned_customers
+                        employees = []
+                        assigned_customers = []
+                    bank = line.strip().split(':')[0]
