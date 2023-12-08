@@ -45,6 +45,6 @@ A szkript egy menüt kínál különböző lehetőségekkel a kiválasztott nyel
 
 ## Hozzájárulók
 
-- BotosBence, GaalZsombor
-  
+- BotosBence - https://github.com/BotosBence
+- GaalZsombor - https://github.com/GaalZsombor
 ---
