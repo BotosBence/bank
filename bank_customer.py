@@ -20,16 +20,14 @@ class Customer:
             bank = details['bank'] if details['bank'] else "Not assigned"
             print(f"ID: {cust_id}, Name: {details['name']}, Age: {details['age']}, Bank: {bank}")
 
-    def save_customers(self, file_name):
-        with open(file_name, 'w') as file:
+    def save_to_file(self, filename='save.txt'):
+        with open(filename, 'w') as file:
             for cust_id, details in self.customers.items():
-                bank = details['bank'] if details['bank'] else "Not assigned"
-                file.write(f"{cust_id}:{details['name']}:{details['age']}:{bank}\n")
+                file.write(f"{cust_id},{details['name']},{details['age']},{details['bank']}\n")
 
-    def load_customers(self, file_name):
-        with open(file_name, 'r') as file:
-            self.customers = {}
-            lines = file.readlines()
-            for line in lines:
-                cust_id, name, age, bank = line.strip().split(':')
+    def load_from_file(self, filename='save.txt'):
+        self.customers = {}
+        with open(filename, 'r') as file:
+            for line in file:
+                cust_id, name, age, bank = line.strip().split(',')
                 self.customers[int(cust_id)] = {'name': name, 'age': int(age), 'bank': bank}

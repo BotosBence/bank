@@ -74,11 +74,11 @@ if language == 1:
                 if i[0] == bank_id:
                     i.append(user_id)
         elif c == "13":
-            bank.save_bank_data("save.txt")
-            bank.customer_obj.save_customers("save.txt")
+            bank.save_to_file()
+            bank.customer_obj.save_to_file()
         elif c == "14":
-            bank.load_bank_data("save.txt")
-            bank.customer_obj.load_customers("save.txt")
+            bank.load_from_file("save.txt")
+            bank.customer_obj.load_from_file()
         elif c == "0":
             print("Exiting the system. Goodbye!")
             break
@@ -153,11 +153,11 @@ if language == 2:
                 if i[0] == bank_id:
                     i.append(user_id)
         elif c == "13":
-            bank.save_bank_data("save.txt")
-            bank.customer_obj.save_customers("save.txt")
+            bank.save_to_file()
+            bank.customer_obj.save_to_file()
         elif c == "14":
-            bank.load_bank_data("save.txt")
-            bank.customer_obj.load_customers("save.txt")
+            bank.load_from_file()
+            bank.customer_obj.load_from_file()
         elif c == "0":
             print("Kilépés, köszönjük hogy ezt a programot használja!")
             break
@@ -232,11 +232,11 @@ if language == 3:
                 if i[0] == bank_id:
                     i.append(user_id)
         elif c == "13":
-            bank.save_bank_data("save.txt")
-            bank.customer_obj.save_customers("save.txt")
+            bank.save_to_file()
+            bank.customer_obj.save_customers()
         elif c == "14":
-            bank.load_bank_data("save.txt")
-            bank.customer_obj.load_customers("save.txt")
+            bank.load_from_file()
+            bank.customer_obj.load_customers()
         elif c == "0":
             print("Ausfhart, danke für du zu whälen eure program!")
             break

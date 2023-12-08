@@ -63,7 +63,6 @@ class Bank:
                     print(f"    -Name: {emp}, Age: {self.employees[emp]['age']}")
             else:
                 print("  No employees in this bank.")
-            print(self.customers_in_banks)
             for customer_bank in self.customers_in_banks:
                 if customer_bank[0] == bank:
                     print(customer_bank)
@@ -73,45 +72,47 @@ class Bank:
         for emp, details in self.employees.items():
             print(f"- {emp}, Age: {details['age']}")
 
-    def save_bank_data(self, file_name):
-        with open(file_name, 'w') as file:
-            for bank, employees in self.bank_names.items():
-                file.write(f"{bank}:\n")
-                for emp in employees:
-                    file.write(f"    {emp}:{self.employees[emp]['age']}\n")
-                file.write('\n')
+    def save_to_file(self, filename='save.txt'):
+        with open(filename, 'w') as file:
+            file.write("Bank Names:\n")
+            for bank_name, employees in self.bank_names.items():
+                file.write(f"{bank_name}: {employees}\n")
 
-                assigned_customers = self.customers_in_banks[bank] if bank in self.customers_in_banks else []
-                for cust_id in assigned_customers:
-                    name = self.customer_obj.customers[cust_id]['name']
-                    age = self.customer_obj.customers[cust_id]['age']
-                    file.write(f"    {cust_id}:{name}:{age}\n")
-                file.write('\n')
+            file.write("\nEmployees:\n")
+            for employee, details in self.employees.items():
+                file.write(f"{employee}: {details}\n")
 
-    def load_bank_data(self, file_name):
-        with open(file_name, 'r') as file:
+            file.write("\nCustomers in Banks:\n")
+            for bank_customer in self.customers_in_banks:
+                file.write(f"{bank_customer[0]}: {bank_customer[1]}\n")
+
+        print(f"Data saved to '{filename}'.")
+
+    def load_from_file(self, filename='save.txt'):
+        with open(filename, 'r') as file:
+            lines = file.readlines()
+            current_section = None
             self.bank_names = {}
             self.employees = {}
-            self.customers_in_banks = {}
-            lines = file.readlines()
-            bank = ''
-            employees = []
-            assigned_customers = []
+            self.customers_in_banks = []
+
             for line in lines:
-                if line.startswith('-'):
-                    cust_id, name, age = line.strip().split(':')[1:]
-                    assigned_customers.append(int(cust_id))
-                    self.customer_obj.customers[int(cust_id)] = {'name': name, 'age': int(age)}
-                elif line.startswith(' '):
-                    parts = line.strip().split(':')
-                    if len(parts) == 2:
-                        emp_name, emp_age = parts
-                        employees.append(emp_name)
-                        self.employees[emp_name] = {'age': int(emp_age), 'bank': bank}
-                else:
-                    if bank:
-                        self.bank_names[bank] = employees
-                        self.customers_in_banks[bank] = assigned_customers
-                        employees = []
-                        assigned_customers = []
-                    bank = line.strip().split(':')[0]
+                line = line.strip()
+                if line == "Bank Names:":
+                    current_section = 'bank_names'
+                elif line == "Employees:":
+                    current_section = 'employees'
+                elif line == "Customers in Banks:":
+                    current_section = 'customers_in_banks'
+                elif line:
+                    if current_section == 'bank_names':
+                        bank_name, employees = line.split(': ')
+                        self.bank_names[bank_name] = eval(employees)
+                    elif current_section == 'employees':
+                        employee, details = line.split(': ')
+                        self.employees[employee] = eval(details)
+                    elif current_section == 'customers_in_banks':
+                        bank_name, customers = line.split(': ')
+                        self.customers_in_banks.append([bank_name, eval(customers)])
+
+        print(f"Data loaded from '{filename}'.")
