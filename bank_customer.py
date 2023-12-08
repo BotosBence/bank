@@ -1,7 +1,7 @@
 class Customer:
     def __init__(self):
         self.customers = {}
-        self.bank_customer_list = {}
+        self.customers_in_banks = []
 
     def last_customer_id(self):
         return max(self.customers.keys()) if self.customers else 0
@@ -9,11 +9,6 @@ class Customer:
     def add_customer(self, name, age, bank):
         last_id = self.last_customer_id()
         self.customers[last_id + 1] = {'name': name, 'age': age, 'bank': bank}
-
-    def assign_bank(self, cust_id, bank_name):
-        if cust_id in self.customers:
-            self.customers[cust_id]['bank'] = bank_name
-            self.bank_customer_list[bank_name] = self.customers[cust_id]
 
     def delete_customer(self, cust_id):
         if cust_id in self.customers:
