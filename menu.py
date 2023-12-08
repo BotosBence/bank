@@ -1,5 +1,6 @@
 import bank_customer
 from Bank_software import Bank
+print(" --- Not complete translation only the menu is translated --- ")     # this is intentional
 language = int(input("Language/Nyelv/Sprache: [1] English, [2] Magyar, [3] Deutsch: "))
 bank = Bank()
 customer = bank_customer.Customer()

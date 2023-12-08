@@ -5,21 +5,21 @@ class Bank:
     def __init__(self):
         self.bank_names = {}
         self.employees = {}
-        self.customers_in_banks = []    # [bank_name, [cust_ids]]
+        self.customers_in_banks = []
         self.customer_obj = bank_customer.Customer()
 
     def add_new_bank(self, bank_name):
-        self.bank_names[bank_name] = []
+        self.bank_names[bank_name] = []     # Új bank hozzáadása a bank nevek szótárához
 
     def add_employee(self, employee_name, age, bank_name):
-        if bank_name in self.bank_names:
+        if bank_name in self.bank_names:    # Dolgozó hozzáadása a megadott bankhoz
             self.employees[employee_name] = {'age': age, 'bank': bank_name}
             self.bank_names[bank_name].append(employee_name)
         else:
-            print(f"The bank '{bank_name}' does not exist.")
+            print(f"The bank '{bank_name}' does not exist.")    # Ha a megadott bank nem létezik, kiírja az üzenetet
 
     def add_customer_to_bank(self, cust_id, bank_name):
-        banks = self.customers_in_banks
+        banks = self.customers_in_banks     # Ügyfél hozzáadása a megadott bankhoz
         if bank_name in self.bank_names:
             if bank_name not in banks:
                 banks.append([bank_name, cust_id])
@@ -28,11 +28,11 @@ class Bank:
                     if bank[0] == bank_name:
                         bank.append(cust_id)
         else:
-            print(f"The bank '{bank_name}' does not exist.")
+            print(f"The bank '{bank_name}' does not exist.")    # Ha a megadott bank nem létezik, kiírja az üzenetet
 
     def check_bank(self, bank_name):
         if bank_name not in self.bank_names:
-            create = input(f"The bank '{bank_name}' does not exist. Create? (y/n): ")
+            create = input(f"The bank '{bank_name}' does not exist. Create? (y/n): ")    # Ellenőrzi, hogy a megadott bank létezik-e
             if create.lower() == 'y':
                 self.add_new_bank(bank_name)
 
@@ -70,7 +70,7 @@ class Bank:
         for emp, details in self.employees.items():
             print(f"- {emp}, Age: {details['age']}")
 
-    def save_to_file(self, filename='save.txt'):
+    def save_to_file(self, filename='save.txt'):        # Adatok mentése fájlba
         with open(filename, 'w') as file:
             file.write("Bank Names:\n")
             for bank_name, employees in self.bank_names.items():
@@ -86,7 +86,7 @@ class Bank:
 
         print(f"Data saved to '{filename}'.")
 
-    def load_from_file(self, filename='save.txt'):
+    def load_from_file(self, filename='save.txt'):      # Adatok betöltése fájlból
         with open(filename, 'r') as file:
             lines = file.readlines()
             current_section = None
