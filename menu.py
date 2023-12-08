@@ -20,6 +20,8 @@ if language == 1:
         print("10. Delete customer")
         print("11. List customers")
         print("12. Assign bank to customer")
+        print("13. Save")
+        print("14. Load")
         print("0. Exit")
 
     while c != 0:
@@ -98,6 +100,8 @@ if language == 2:
         print("10. Felhasználó törlése")
         print("11. Felhasználók listázása")
         print("12. Felhasználó bankhoz adása")
+        print("13. Mentés")
+        print("14. Betöltés")
         print("0. Kilépés")
 
     while c != 0:
@@ -148,6 +152,12 @@ if language == 2:
             for i in bank.customers_in_banks:
                 if i[0] == bank_id:
                     i.append(user_id)
+        elif c == "13":
+            bank.save_bank_data("save.txt")
+            bank.customer_obj.save_customers("save.txt")
+        elif c == "14":
+            bank.load_bank_data("save.txt")
+            bank.customer_obj.load_customers("save.txt")
         elif c == "0":
             print("Kilépés, köszönjük hogy ezt a programot használja!")
             break
@@ -169,6 +179,8 @@ if language == 3:
         print("10. Löschen benutzer")
         print("11. Liste der benutzer")
         print("12. Hinzufügen eines Benutzers zur bank")
+        print("13. Speichern")
+        print("14. Belastung")
         print("0. Ausfhart")
 
     while c != 0:
@@ -219,6 +231,12 @@ if language == 3:
             for i in bank.customers_in_banks:
                 if i[0] == bank_id:
                     i.append(user_id)
+        elif c == "13":
+            bank.save_bank_data("save.txt")
+            bank.customer_obj.save_customers("save.txt")
+        elif c == "14":
+            bank.load_bank_data("save.txt")
+            bank.customer_obj.load_customers("save.txt")
         elif c == "0":
             print("Ausfhart, danke für du zu whälen eure program!")
             break
