@@ -16,7 +16,12 @@ class Bank:
             self.employees[employee_name] = {'age': age, 'bank': bank_name}
             self.bank_names[bank_name].append(employee_name)
         else:
-            print(f"The bank '{bank_name}' does not exist.")    # Ha a megadott bank nem létezik, kiírja az üzenetet
+            print(f"The bank '{bank_name}' does not exist.")    # Ellenőrzi, hogy a megadott bank létezik-e
+            create = input("Create? (y / n): ")
+            if create.lower() == 'y':
+                self.add_new_bank(bank_name)    # Ha a megadott bank nem létezik, kiírja az üzenetet
+                self.employees[employee_name] = {'age': age, 'bank': bank_name}
+                self.bank_names[bank_name].append(employee_name)
 
     def add_customer_to_bank(self, cust_id, bank_name):
         banks = self.customers_in_banks     # Ügyfél hozzáadása a megadott bankhoz
@@ -67,18 +72,25 @@ class Bank:
                     print(f"    -Name: {emp}, Age: {self.employees[emp]['age']}")
             else:
                 print("  No employees in this bank.")
+            print("  Customers:")
+            self.customer_obj.list_bank_customer(bank)
+
+    def list_customers(self):
+        print("  Customers:")
+        for bank, employees in self.bank_names.items():
             self.customer_obj.list_bank_customer(bank)
 
     def list_employees(self):
-        print("Employees:")
-        for emp, details in self.employees.items():
-            print(f"- {emp}, Age: {details['age']}")
+        print("  Employees:")
+        for bank, employees in self.bank_names.items():
+            for emp in employees:
+                print(f"    -Name: {emp}, Age: {self.employees[emp]['age']}, Bank: {bank}")
 
     def save_to_file(self, filename='save.txt'):        # Adatok mentése fájlba
         with open(filename, 'w') as file:
             file.write("Bank Names:\n")
             for bank_name, employees in self.bank_names.items():
-                file.write(f"{bank_name}: {','.join(employees)}\n")
+                file.write(f"{bank_name}: {','.join(employees)}")
 
             file.write("\nEmployees:\n")
             for employee, details in self.employees.items():
@@ -108,8 +120,14 @@ class Bank:
                     current_section = 'customers_in_banks'
                 elif line:
                     if current_section == 'bank_names':
-                        bank_name, employees = line.split(': ')
-                        self.bank_names[bank_name] = employees.split(',')
+                        if len(line.split(': ')) == 1:
+                            bank_name = line.strip()
+                            a = len(bank_name)-1     # csak azért kell hogy ne legyen : banknév végén
+                            bank_name = bank_name[:a]
+                            self.bank_names[bank_name] = []
+                        else:
+                            bank_name, employees = line.split(': ')
+                            self.bank_names[bank_name] = employees.split(',')
                     elif current_section == 'employees':
                         employee, details = line.split(': ')
                         age, bank = details.split(',')

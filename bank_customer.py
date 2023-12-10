@@ -16,12 +16,10 @@ class Customer:
 
     def list_customers(self):
         print("Customers: ")
-        print()
         for cust_id, details in self.customers.items():
             bank = details['bank'] if details['bank'] else "Not assigned"
             print(f"ID: {cust_id}, Name: {details['name']}, Age: {details['age']}, Bank: {bank}")
     def list_bank_customer(self, bank_name):
-        print("   Customers:")
         for cust_id, details in self.customers.items():
             if details['bank'] == bank_name:
                 print(f"      ID: {cust_id}, Name: {details['name']}, Age: {details['age']}, Bank: {bank_name}")

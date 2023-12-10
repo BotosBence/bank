@@ -1,2 +1,2 @@
-1,Ádám,35,Nagy Bank
-2,Szilvia,45,Kis Bank
+1,asd,234,asd
+2,tyg,23,qwe

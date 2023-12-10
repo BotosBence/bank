@@ -54,7 +54,7 @@ if language == 1:
             bank.list_banks()
             enter = input("--- Press enter to continue --- ")
         elif c == "8":
-            bank.list_employees
+            bank.list_employees()
             enter = input("--- Press enter to continue --- ")
         elif c == "9":
             cust_name = input("Enter customer name: ")
@@ -66,7 +66,7 @@ if language == 1:
             cust_id = int(input("Enter customer ID to delete: "))
             customer.delete_customer(cust_id)
         elif c == "11":
-            customer.list_customers()
+            bank.list_customers()
             enter = input("--- Press enter to continue --- ")
         elif c == "12":
             user_id = input("Please give the customers ID: ")
