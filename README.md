@@ -36,7 +36,6 @@ A szkript egy menüt kínál különböző lehetőségekkel a kiválasztott nyel
 ## Megjegyzések
 
 - A kódban található fordítások szándékosan hiányosak.
-- A szkript az inputot használja a felhasználókkal való interakcióhoz és különböző műveletek végrehajtásához a kiválasztott opciók alapján.
 
 ## Követelmények
 
@@ -46,6 +45,6 @@ A szkript egy menüt kínál különböző lehetőségekkel a kiválasztott nyel
 
 ## Hozzájárulók
 
-- BotosBence, GaalZsombor
-  
+- BotosBence - https://github.com/BotosBence
+- GaalZsombor - https://github.com/GaalZsombor
 ---
