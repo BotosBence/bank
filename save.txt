@@ -3,7 +3,7 @@ Nagy Bank: Eszter,Bence
 Kis Bank:
 
 Employees:
-Eszter: 28,Nagy Bank
-Bence: 27,Nagy Bank
+Eszter: 21,Nagy Bank
+Bence: 32,Nagy Bank
 
 Customers in Banks:

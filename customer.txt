@@ -1,2 +1,2 @@
-1,�d�m,35,Nagy Bank
-2,Szilvia,45,Kis Bank
+1,�d�m,25,Nagy Bank
+2,Szilvia,76,Kis Bank
