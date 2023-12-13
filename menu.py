@@ -64,7 +64,7 @@ if language == 1:
             bank.customer_obj.add_customer(cust_name, age, bank_name)
         elif c == "10":
             cust_id = int(input("Enter customer ID to delete: "))
-            customer.delete_customer(cust_id)
+            bank.del_customer(cust_id)
         elif c == "11":
             bank.list_customers()
             enter = input("--- Press enter to continue --- ")
@@ -143,7 +143,7 @@ if language == 2:
             bank.customer_obj.add_customer(cust_name, age, bank_name)
         elif c == "10":
             cust_id = int(input("Felhasználó törléséhez id megadása: "))
-            customer.delete_customer(cust_id)
+            bank.del_customer(cust_id)
         elif c == "11":
             customer.list_customers()
             enter = input("--- nyomjon enter-t a tovább haladáshoz --- ")
@@ -222,7 +222,7 @@ if language == 3:
             bank.customer_obj.add_customer(cust_name, age, bank_name)
         elif c == "10":
             cust_id = int(input("ID für löschen benutzer: "))
-            customer.delete_customer(cust_id)
+            bank.del_customer(cust_id)
         elif c == "11":
             customer.list_customers()
             enter = input("--- Drücken Sie die Eingabetaste, um fortzufahren --- ")

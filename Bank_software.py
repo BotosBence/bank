@@ -62,6 +62,24 @@ class Bank:
             del self.employees[employee_name]
             print(f"The employee '{employee_name}' has been deleted.")
 
+    def del_customer(self, cust_id):
+        keys_to_delete = []
+        for key, details in self.customer_obj.customers.items():
+            if key == cust_id:
+                bank_assigned = details['bank']
+                keys_to_delete.append(key)
+
+        for key in keys_to_delete:
+            del self.customer_obj.customers[key]
+
+        for bank_customer in self.customers_in_banks:
+            if bank_customer[0] == bank_assigned and cust_id in bank_customer[1]:
+                bank_customer[1].remove(cust_id)
+                print(f"Customer '{cust_id}' has been deleted.")
+                return
+
+        print(f"Customer '{cust_id}' not found.")
+
     def list_banks(self):
         print("Banks, employees, and assigned customers:")
         for bank, employees in self.bank_names.items():
@@ -137,3 +155,4 @@ class Bank:
                         self.customers_in_banks.append([bank_name, customers.split(',')])
 
         print(f"Data loaded from '{filename}'.")
+

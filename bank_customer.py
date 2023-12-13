@@ -10,10 +10,6 @@ class Customer:
         last_id = self.last_customer_id()
         self.customers[last_id + 1] = {'name': name, 'age': age, 'bank': bank}
 
-    def delete_customer(self, cust_id):
-        if cust_id in self.customers:
-            del self.customers[cust_id]
-
     def list_customers(self):
         print("Customers: ")
         for cust_id, details in self.customers.items():
