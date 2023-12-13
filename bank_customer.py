@@ -13,6 +13,8 @@ class Customer:
     def delete_customer(self, cust_id):
         if cust_id in self.customers:
             del self.customers[cust_id]
+        else:
+            print("customer does not exist")
 
     def list_customers(self):
         print("Customers: ")

@@ -56,11 +56,15 @@ class Bank:
         if bank_name in self.bank_names:
             del self.bank_names[bank_name]
             print(f"The bank '{bank_name}' has been deleted.")
+        else:
+            print("Bank does not exist")
 
     def del_employee(self, employee_name):
         if employee_name in self.employees:
             del self.employees[employee_name]
             print(f"The employee '{employee_name}' has been deleted.")
+        else:
+            print("employee does not exist")
 
     def list_banks(self):
         print("Banks, employees, and assigned customers:")
