@@ -1,0 +1,2 @@
+1,Adam,25,Nagy Bank
+2,Szilvia,76,Kis Bank

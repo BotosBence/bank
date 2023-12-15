@@ -1,0 +1,442 @@
+Index: bank.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>class bank():\r\n    def add(self, key, value):  # this just adds a key and a value to a dictonary\r\n        self[key] = value\r\n\r\n    def __init__(self):  # this defines lists\r\n        self.banknames = {}  # bankName, headquarters\r\n        self.employees = {}  # bankName, userAccounts - this is (probably) where tech support is\r\n\r\n    def add_new_bank(self):  # record new bank to bankname list\r\n        user_input = input(\"Name of the bank: \")\r\n        if user_input is not None:\r\n            self.banknames.add(user_input, None)\r\n        else:\r\n            return False\r\n\r\n    def check_bank_name(self):  # search for bank in bankname\r\n        user_input = input(\"Type in the name of the bank you're searching for: \")\r\n        return True if user_input in self.banknames else False, user_input\r\n    def check_employee_name(self):  # search for employee in employees\r\n        user_input = input(\"Type in the name of the employee you're searching for: \")\r\n        return True if user_input in self.employees else False, user_input\r\n\r\n    def addEmployee(self):  # new employee recording\r\n        user_input = input(\"Name of the employee: \")\r\n        if user_input is not None:\r\n            self.employees.add(user_input, None)\r\n        else:\r\n            return False\r\n\r\n    def smart_check_bank(self, get, user_input):  # function checks if bank doesn't exist in bankname and gives you the\r\n        # chance to record it\r\n        \"There is a bank with that name\" if get is True else \"there are no banks with that name\"\r\n        while get:\r\n            question = input(\"Would you like to record a new bank?[y/n]: \")\r\n            if question:\r\n                self.banknames.add(user_input, None)\r\n\r\n    def smart_bankoffice_del(self):  # searches for and deletes bank office, it's smart because it searches\r\n\r\n    def bankoffice_list(self):  # lists bankoffices\r\n        print(self.employees)\r\n\r\n    def save(self):  # probably doesn't work\r\n        f = open('save.txt', 'r')\r\n        f.write(f\"{self.banknames} \\nself.bankoffices\")\r\n        f.close()\r\n\r\n    def load(self):  # probably doesn't work\r\n        f = open('save.txt', 'r')\r\n        for sor in range(len(f)):\r\n            data = [self.banknames, self.employees]\r\n            data[sor] = f.readlines[sor]\r\n            f.close()\r\n\r\nclass customer():\r\n    def __init__(self):  # this function was made for list_customer function\r\n        self.customers = []\r\n\r\n    def last_id(self):  # I don't know what this does or why this was created but it needs to be called\r\n        return\r\n\r\n    def add_customer(self):  # add new customer to customer list\r\n        user_input = None\r\n        while user_input is None:\r\n            user_input = input(\"Type in a name of the office: \")\r\n            if user_input in self.customers:\r\n                return user_input  # needs to appended in self\r\n\r\n    def list_customer(self):  # lists customers from self\r\n        print(self.customers)\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/bank.py b/bank.py
+--- a/bank.py	
++++ b/bank.py	
+@@ -1,71 +1,235 @@
+-class bank():
+-    def add(self, key, value):  # this just adds a key and a value to a dictonary
+-        self[key] = value
++class Bank:
++    def __init__(self):
++        self.bankname = []  # list to store bank names and headquarters
++        self.bankoffices = []  # list to store bank names and their branches
+ 
+-    def __init__(self):  # this defines lists
+-        self.banknames = {}  # bankName, headquarters
+-        self.employees = {}  # bankName, userAccounts - this is (probably) where tech support is
++    def add_new_bank(self, new_bank):
++        self.bankname.append(new_bank)
+ 
+-    def add_new_bank(self):  # record new bank to bankname list
+-        user_input = input("Name of the bank: ")
+-        if user_input is not None:
+-            self.banknames.add(user_input, None)
++    def check_bank_name(self, bank_name):
++        return bank_name in self.bankname
++
++    def add_bankoffices(self, bank_name, new_branch):
++        if self.check_bank_name(bank_name):
++            self.bankoffices.append([bank_name, new_branch])
+         else:
+-            return False
++            print("Bank name does not exist. Add the bank first.")
++
++    def del_bankoffices(self, branch_name):
++        for branch in self.bankoffices:
++            if branch[1] == branch_name:
++                self.bankoffices.remove(branch)
++                break
+ 
+-    def check_bank_name(self):  # search for bank in bankname
+-        user_input = input("Type in the name of the bank you're searching for: ")
+-        return True if user_input in self.banknames else False, user_input
+-    def check_employee_name(self):  # search for employee in employees
+-        user_input = input("Type in the name of the employee you're searching for: ")
+-        return True if user_input in self.employees else False, user_input
++    def list_bankoffices(self, bank_name):
++        branches = [branch[1] for branch in self.bankoffices if branch[0] == bank_name]
++        return branches
+ 
+-    def addEmployee(self):  # new employee recording
+-        user_input = input("Name of the employee: ")
+-        if user_input is not None:
+-            self.employees.add(user_input, None)
++
++class Customer:
++    def __init__(self):
++        self.customers = []  # list to store customer details
++
++    def last_cust_id(self):
++        if self.customers:
++            return self.customers[-1]['id']
+         else:
+-            return False
++            return 0
++
++    def add_customer(self, customer_details):
++        customer_details['id'] = self.last_cust_id() + 1
++        self.customers.append(customer_details)
++
++    def list_customers(self):
++        return self.customers
++
++
++
++
++def save_data(bank, customer):
++    with open("bank_data.txt", "w") as file:
++        file.write("Bank Data:\n")
++        for name in bank.bankname:
++            file.write(f"{name}\n")
++
++        file.write("\nBank Offices Data:\n")
++        for branch in bank.bankoffices:
++            file.write(f"{branch[0]}, {branch[1]}\n")
++
++        file.write("\nCustomer Data:\n")
++        for cust in customer.customers:
++            file.write(f"{cust['id']}, {cust['name']}\n")
++
++
++def load_data():
++    bank = Bank()
++    customer = Customer()
++    try:
++        with open("bank_data.txt", "r") as file:
++            lines = file.readlines()
++            current_category = None
++            for line in lines:
++                line = line.strip()
++                if line == "Bank Data:":
++                    current_category = "bank"
++                elif line == "Bank Offices Data:":
++                    current_category = "bankoffices"
++                elif line == "Customer Data:":
++                    current_category = "customer"
++                elif line:
++                    if current_category == "bank":
++                        bank.add_new_bank(line)
++                    elif current_category == "bankoffices":
++                        data = line.split(", ")
++                        bank.add_bankoffices(data[0], data[1])
++                    elif current_category == "customer":
++                        data = line.split(", ")
++                        customer.add_customer({'id': int(data[0]), 'name': data[1]})
++    except FileNotFoundError:
++        pass
++
++    return bank, customer
++
++
++def main_menu():
++    bank = Bank()
++    customer = Customer()
++    bank, customer = load_data()
++
++    while True:
++        print("\n*** Main Menu ***")
++        print("1. Add a new bank")
++        print("2. Add a bank branch")
++        print("3. Delete a bank branch")
++        print("4. List bank branches")
++        print("5. Add a customer")
++        print("6. List customers")
++        print("7. Exit")
++
++        choice = input("Enter your choice: ")
+ 
+-    def smart_check_bank(self, get, user_input):  # function checks if bank doesn't exist in bankname and gives you the
+-        # chance to record it
+-        "There is a bank with that name" if get is True else "there are no banks with that name"
+-        while get:
+-            question = input("Would you like to record a new bank?[y/n]: ")
+-            if question:
+-                self.banknames.add(user_input, None)
++        if choice == '1':
++            bank_name = input("Enter the name of the new bank: ")
++            bank.add_new_bank(bank_name)
++            print(f"{bank_name} added to the bank list.")
+ 
+-    def smart_bankoffice_del(self):  # searches for and deletes bank office, it's smart because it searches
++        elif choice == '2':
++            bank_name = input("Enter the bank name: ")
++            branch_name = input("Enter the new branch name: ")
++            bank.add_bankoffices(bank_name, branch_name)
++            print(f"{branch_name} added to {bank_name}.")
+ 
+-    def bankoffice_list(self):  # lists bankoffices
+-        print(self.employees)
++        elif choice == '3':
++            branch_name = input("Enter the branch name to delete: ")
++            bank.del_bankoffices(branch_name)
++            print(f"{branch_name} deleted.")
+ 
+-    def save(self):  # probably doesn't work
+-        f = open('save.txt', 'r')
+-        f.write(f"{self.banknames} \nself.bankoffices")
+-        f.close()
++        elif choice == '4':
++            bank_name = input("Enter the bank name to list branches: ")
++            branches = bank.list_bankoffices(bank_name)
++            print(f"Branches of {bank_name}: {branches}")
+ 
+-    def load(self):  # probably doesn't work
+-        f = open('save.txt', 'r')
+-        for sor in range(len(f)):
+-            data = [self.banknames, self.employees]
+-            data[sor] = f.readlines[sor]
+-            f.close()
++        elif choice == '5':
++            customer_name = input("Enter customer name: ")
++            customer_id = customer.last_cust_id() + 1
++            customer_details = {'id': customer_id, 'name': customer_name}
++            customer.add_customer(customer_details)
++            print(f"Customer {customer_name} added with ID: {customer_id}")
+ 
+-class customer():
+-    def __init__(self):  # this function was made for list_customer function
+-        self.customers = []
++        elif choice == '6':
++            customers = customer.list_customers()
++            print("\nCustomers:")
++            for cust in customers:
++                print(f"ID: {cust['id']}, Name: {cust['name']}")
+ 
+-    def last_id(self):  # I don't know what this does or why this was created but it needs to be called
+-        return
++        elif choice == '7':
++            print("Exiting...")
++            break
+ 
+-    def add_customer(self):  # add new customer to customer list
+-        user_input = None
+-        while user_input is None:
+-            user_input = input("Type in a name of the office: ")
+-            if user_input in self.customers:
+-                return user_input  # needs to appended in self
++        else:
++            print("Invalid choice. Please enter a valid option.")
+ 
+-    def list_customer(self):  # lists customers from self
+-        print(self.customers)
+ 
++if __name__ == "__main__":
++    main_menu()
++
++# class bank():
++#     banknames = {}
++#     employees = {}
++#     def add(self, key, value):  # this just adds a key and a value to a dictonary
++#         self[key] = value
++#
++#     def __init__(self):  # this defines lists
++#         self.banknames = {}  # bankName, headquarters
++#         self.employees = {}  # bankName, userAccounts - this is (probably) where tech support is
++#
++#     def add_new_bank(self):  # record new bank to bankname list
++#         user_input = input("Name of the bank: ")
++#         if user_input is not None:
++#             self.banknames.add(user_input, None)
++#         else:
++#             return False
++#
++#     def check_bank_name(self):  # search for bank in bankname
++#         user_input = input("Type in the name of the bank you're searching for: ")
++#         return True if user_input in self.banknames else False, user_input
++#     def check_employee_name(self):  # search for employee in employees
++#         user_input = input("Type in the name of the employee you're searching for: ")
++#         return True if user_input in self.employees else False, user_input
++#
++#     def addEmployee(self):  # new employee recording
++#         user_input = input("Name of the employee: ")
++#         if user_input is not None:
++#             self.employees.add(user_input, None)
++#         else:
++#             return False
++#
++#     def smart_check_bank(self, get, user_input):  # function checks if bank doesn't exist in bankname and gives you the
++#         # chance to record it
++#         "There is a bank with that name" if get is True else "there are no banks with that name"
++#         while get:
++#             question = input("Would you like to record a new bank?[y/n]: ")
++#             if question:
++#                 self.banknames.add(user_input, None)
++#
++#     def smart_employee_del(self):  # searches for and deletes bank office, it's smart because it searches
++#         pass
++#
++#
++#     def bank_list(self):
++#         print(self.banknames)
++#
++#     def employee_list(self):  # lists bankoffices
++#         print(self.employees)
++#
++#     def save(self):  # probably doesn't work
++#         f = open('save.txt', 'r')
++#         f.write(f"{self.banknames} \nself.bankoffices")
++#         f.close()
++#
++#     def load(self):  # probably doesn't work
++#         f = open('save.txt', 'r')
++#         for sor in range(len(f)):
++#             data = [self.banknames, self.employees]
++#             data[sor] = f.readlines[sor]
++#             f.close()
++#
++# class customer():
++#     def __init__(self):  # this function was made for list_customer function
++#         self.customers = []
++#
++#     def last_id(self):  # I don't know what this does or why this was created but it needs to be called
++#         return
++#
++#     def add_customer(self):  # add new customer to customer list
++#         user_input = None
++#         while user_input is None:
++#             user_input = input("Type in a name of the office: ")
++#             if user_input in self.customers:
++#                 return user_input  # needs to appended in self
++#
++#     def list_customer(self):  # lists customers from self
++#         print(self.customers)
++#
++# bank.add_new_bank(bank.__init__())
++# bank.bank_list()
+\ No newline at end of file
+Index: menu.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/menu.py b/Menu.py
+rename from menu.py
+rename to Menu.py
+--- a/menu.py	
++++ b/Menu.py	
+@@ -1,6 +1,123 @@
+-from bank import bank
++from Bank_software import Bank, Customer
++import json
++
++def save_data(bank_obj, customer_obj):
++    with open("save.txt", "w") as file:
++        data = {
++            'bankname': bank_obj.bankname,
++            'employee': bank_obj.employee,
++            'customers': customer_obj.customers
++        }
++        json.dump(data, file)
++        print("Data saved successfully.")
+ 
+-def system_load(self): # load data from text file (load function is in bank class)
+-    pass
+-def system_save(self): # save data to text file (save function is in bank class)
+-    pass
+\ No newline at end of file
++def load_data(bank_obj, customer_obj):
++    try:
++        with open("save.txt", "r") as file:
++            data = json.load(file)
++            bank_obj.bankname = data['bankname']
++            bank_obj.employee = data['employee']
++            customer_obj.customers = data['customers']
++            print("Data loaded successfully.")
++    except FileNotFoundError:
++        print("No saved data found.")
++
++def main_menu():
++    bank = Bank()
++    customer = Customer()
++
++    while True:
++        print("\n--- Main Menu ---")
++        print("1. Bank Operations")
++        print("2. Customer Operations")
++        print("3. Save Data")
++        print("4. Load Data")
++        print("5. Exit")
++        choice = input("Enter your choice: ")
++
++        if choice == '1':
++            bank_menu(bank)
++        elif choice == '2':
++            customer_menu(customer)
++        elif choice == '3':
++            save_data(bank, customer)
++        elif choice == '4':
++            load_data(bank, customer)
++        elif choice == '5':
++            break
++        else:
++            print("Invalid choice. Please enter a valid option.")
++
++def bank_menu(bank_obj):
++    while True:
++        print("\n--- Bank Menu ---")
++        print("1. Add New Bank")
++        print("2. Add Employee")
++        print("3. Check Bank")
++        print("4. Check Employee")
++        print("5. Delete Bank")
++        print("6. Delete Employee")
++        print("7. List Banks")
++        print("8. List Employees")
++        print("9. Back to Main Menu")
++        choice = input("Enter your choice: ")
++
++        if choice == '1':
++            bank_name = input("Enter new bank name: ")
++            bank_obj.add_new_bank(bank_name)
++        elif choice == '2':
++            employee_name = input("Enter employee name: ")
++            age = int(input("Enter employee's age: "))
++            bank_name = input("Enter bank name for the employee: ")  # Added this line
++            bank_obj.add_employee(employee_name, age, bank_name)  # Pass bank_name argument
++        elif choice == '3':
++            bank_name = input("Enter bank name to check: ")
++            bank_obj.check_bank(bank_name)
++        elif choice == '4':
++            employee_name = input("Enter employee name to check: ")
++            bank_obj.check_employee(employee_name)
++        elif choice == '5':
++            bank_name = input("Enter bank name to delete: ")
++            bank_obj.del_bank(bank_name)
++        elif choice == '6':
++            employee_name = input("Enter employee name to delete: ")
++            bank_obj.del_employee(employee_name)
++        elif choice == '7':
++            bank_obj.list_banks(customer_obj)
++        elif choice == '8':
++            bank_obj.list_employees()
++        elif choice == '9':
++            break
++        else:
++            print("Invalid choice. Please enter a valid option.")
++
++def customer_menu(customer_obj):
++    while True:
++        print("\n--- Customer Menu ---")
++        print("1. Add Customer")
++        print("2. Delete Customer")
++        print("3. List Customers")
++        print("4. Assign Customers to bank")
++        print("5. Back to Main Menu")
++        choice = input("Enter your choice: ")
++
++        if choice == '1':
++            cust_name = input("Enter customer name: ")
++            age = int(input("Enter customer's age: "))
++            customer_obj.add_customer(cust_name, age)
++        elif choice == '2':
++            cust_id = int(input("Enter customer ID to delete: "))
++            customer_obj.del_customer(cust_id)
++        elif choice == '3':
++            customer_obj.list_customers()
++        elif choice == '4':
++            cust_id = int(input("Enter customer ID to assign bank: "))
++            bank_name = input("Enter bank name to assign: ")
++            customer_obj.assign_bank(cust_id, bank_name)
++        elif choice == '5':
++            break
++        else:
++            print("Invalid choice. Please enter a valid option.")
++
++if __name__ == "__main__":
++    main_menu()

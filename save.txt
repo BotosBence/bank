@@ -1,0 +1,9 @@
+Bank Names:
+Nagy Bank: Eszter,Bence
+Kis Bank:
+
+Employees:
+Eszter: 21,Nagy Bank
+Bence: 32,Nagy Bank
+
+Customers in Banks:
