@@ -133,7 +133,7 @@ if language == 2:
             bank.list_banks()
             enter = input("--- nyomjon enter-t a tovább haladáshoz --- ")
         elif c == "8":
-            bank.list_employees
+            bank.list_employees()
             enter = input("--- nyomjon enter-t a tovább haladáshoz --- ")
         elif c == "9":
             cust_name = input("Felhasználó neve: ")
@@ -212,7 +212,7 @@ if language == 3:
             bank.list_banks()
             enter = input("--- Drücken Sie die Eingabetaste, um fortzufahren --- ")
         elif c == "8":
-            bank.list_employees
+            bank.list_employees()
             enter = input("--- Drücken Sie die Eingabetaste, um fortzufahren --- ")
         elif c == "9":
             cust_name = input("Benutzer name: ")
